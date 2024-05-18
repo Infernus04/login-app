@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import userRoutes from "./routes/User.routes.js"
 import authRoutes from "./routes/auth.routes.js"
+import cors from "cors"
 
 dotenv.config()
 
@@ -21,6 +22,7 @@ app.listen(3000, () => {
     console.log(`Server listening on port 3000`)
 })
 
+app.use(cors())
 app.use("/api/user" , userRoutes)
 app.use("/api/auth" , authRoutes)
 app.use((err,req,res,next) => {

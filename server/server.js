@@ -5,6 +5,7 @@ import userRoutes from "./routes/User.routes.js"
 import authRoutes from "./routes/auth.routes.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import path from "path"
  
 dotenv.config()
 
@@ -16,7 +17,15 @@ mongoose.connect(process.env.MONGO).then(() => {
     console.log(err)
 })
 
+const _dirname = path.resolve()
+
 const app = express();
+
+app.use(express.static(path.join(_dirname , "/client/dist")))
+app.get("*" , (req,res) => {
+    res.sendFile(path.join(_dirname, "client" ,"dist", "index.html"))
+})
+
 app.use(express.json())
 
 app.use(cookieParser())
